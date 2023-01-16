@@ -2,12 +2,14 @@ import Head from 'next/head';
 import Image from 'next/image';
 import buildspaceLogo from '../assets/buildspace-logo.png';
 import { useState, useEffect } from 'react';
+import Prism from 'prismjs';
 import 'prismjs/themes/prism.css';
 import 'prismjs/components/prism-javascript';
 
 const Home = () => {
 
   // const [language, setLanguage] = useState('');
+  const [language, setlanguage] = useState("");
   const [userInput, setUsereInput] = useState('');
   const [apiOutput, setApiOutput] = useState('');
   const [isGenerating, setIsGenerating] = useState(false)
@@ -21,19 +23,18 @@ const Home = () => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ userInput }),
+      body: JSON.stringify({ userInput, language }),
     });
 
     const data = await response.json();
-    const {output} = data;
+    const { output } = data;
     console.log("OpenAi replied...", output.text)
 
     setApiOutput(`${output.text}`);
-    Prism.highlightAll();
     setIsGenerating(false);
   }
 
-  const onUserChangedText  = (event) => {
+  const onUserChangedText = (event) => {
     setUsereInput(event.target.value);
   }
 
@@ -52,24 +53,65 @@ const Home = () => {
           </div>
         </div>
         <div className="prompt-container">
-          <textarea 
-            placeholder='start typing here'
+          <div className="dropdown">
+            <button className="dropdown-btn">Select Programming Language</button>
+            <div className="dropdown-content">
+              <button
+                className={`dropdown-option ${language === "TypeScript" ? "selected" : ""}`}
+                onClick={() => setlanguage("TypeScript")}
+              >
+                TypeScript
+              </button>
+              <button
+                className={`dropdown-option ${language === "Python" ? "selected" : ""}`}
+                onClick={() => setlanguage("Python")}
+              >
+                Python
+              </button>
+              <button
+                className={`dropdown-option ${language === "Java" ? "selected" : ""}`}
+                onClick={() => setlanguage("Java")}
+              >
+                Java
+              </button>
+              <button
+                className={`dropdown-option ${language === "C#" ? "selected" : ""}`}
+                onClick={() => setlanguage("C#")}
+              >
+                C#
+              </button>
+              <button
+                className={`dropdown-option ${language === "Go" ? "selected" : ""}`}
+                onClick={() => setlanguage("Go")}
+              >
+                Go
+              </button>
+              <button
+                className={`dropdown-option ${language === "JavaScript" ? "selected" : ""}`}
+                onClick={() => setlanguage("JavaScript")}
+              >
+                JavaScript
+              </button>
+            </div>
+          </div>
+          <textarea
+            placeholder='Start typing here'
             className='prompt-box'
             value={userInput}
             onChange={onUserChangedText}
           />
           <div className='prompt-buttons'>
-            <a 
-              className={isGenerating  ? 'generate-button loading' : 'generate-button'}
+            <a
+              className={isGenerating ? 'generate-button loading' : 'generate-button'}
               onClick={callGenerateEndpoint}
             >
               <div className='generate'>
-                {isGenerating ?  <span className="loader"></span> : <p>Generate</p>}
+                {isGenerating ? <span className="loader"></span> : <p>Generate</p>}
               </div>
             </a>
           </div>
 
-          {apiOutput &&  (
+          {apiOutput && (
             <div className='output'>
               <div className="output-header-container">
                 <div className='output-header'>
@@ -77,7 +119,7 @@ const Home = () => {
                 </div>
               </div>
               <div className='output-content'>
-                <pre className="language-typscript">
+                <pre className={`language-${language}`}>
                   <code>
                     {apiOutput}
                   </code>

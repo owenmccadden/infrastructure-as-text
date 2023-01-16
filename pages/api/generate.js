@@ -10,7 +10,7 @@ const openai = new OpenAIApi(configuration);
 
 const generateAction = async (req, res) => {
     const prompt = `
-    Convert the following text input to AWS CDK code in TypeScript.
+    Convert the following text input to AWS CDK code in ${req.body.language}.
      
     Text: ${req.body.userInput}
     
@@ -22,8 +22,8 @@ const generateAction = async (req, res) => {
     const baseCompletion = await openai.createCompletion({
         model: 'text-davinci-003',
         prompt: prompt,
-        temperature: 0.3,
-        max_tokens: 250,
+        temperature: 0.1,
+        max_tokens: 500,
     });
 
     const basePromptOutput = baseCompletion.data.choices.pop();
