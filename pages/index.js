@@ -3,16 +3,23 @@ import Image from 'next/image';
 import buildspaceLogo from '../assets/buildspace-logo.png';
 import { useState, useEffect } from 'react';
 import Prism from 'prismjs';
-import 'prismjs/themes/prism.css';
+import 'prismjs/themes/prism.css'
+import 'prismjs/components/prism-python';
+import 'prismjs/components/prism-typescript';
 import 'prismjs/components/prism-javascript';
+import 'prismjs/components/prism-java';
+import 'prismjs/components/prism-go';
+import 'prismjs/components/prism-csharp';
 
 const Home = () => {
-
-  // const [language, setLanguage] = useState('');
   const [language, setlanguage] = useState("");
   const [userInput, setUsereInput] = useState('');
   const [apiOutput, setApiOutput] = useState('');
   const [isGenerating, setIsGenerating] = useState(false)
+
+  useEffect(() => {
+    Prism.highlightAll();
+  }, [apiOutput])
 
   const callGenerateEndpoint = async () => {
     setIsGenerating(true);
@@ -119,8 +126,8 @@ const Home = () => {
                 </div>
               </div>
               <div className='output-content'>
-                <pre className={`language-${language}`}>
-                  <code>
+                <pre>
+                  <code className={`language-${language.toLowerCase()}`}>
                     {apiOutput}
                   </code>
                 </pre>

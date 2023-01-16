@@ -10,11 +10,11 @@ const openai = new OpenAIApi(configuration);
 
 const generateAction = async (req, res) => {
     const prompt = `
-    Convert the following text input to AWS CDK code in ${req.body.language}.
+    Write code in ${req.body.language} for the AWS CDK in response to the following text.
      
     Text: ${req.body.userInput}
     
-    TypeScript CDK code: 
+    ${req.body.language} CDK code: 
     
     `
 

@@ -318,6 +318,7 @@ textarea {
     justify-content: flex-start;
     flex-shrink: 0;
     transform: none;
+    background-color: #ffffff;
 }
 
 .output-content p {
