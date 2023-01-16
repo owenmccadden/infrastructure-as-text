@@ -138,7 +138,7 @@ const Home = () => {
       </div>
       <div className="footer-container">
         <div className="footer-content">
-          Created by <a href="#">Owen McCadden</a>
+          Created by <a href="https://owenmccadden.github.io/">Owen McCadden</a>
         </div>
       </div>
     </div>
