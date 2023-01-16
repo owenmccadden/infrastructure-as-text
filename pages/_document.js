@@ -8,7 +8,7 @@ export default function Document() {
         <meta property="og:description" content="Write your AWS CDK code with GTP-3" key="description"/>
         <meta
           property="og:image"
-          content="../public/twitter-card-image.png"
+          content="https://i.imgur.com/aCmdaA5.png"
         />
         <meta name="twitter:card" content="summary_large_image"></meta>
       </Head>
